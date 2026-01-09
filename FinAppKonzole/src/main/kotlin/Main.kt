@@ -1,6 +1,8 @@
 import Models.Transaction
 import Models.TransactionCategory
 import Models.TransactionType
+import java.time.LocalDate
+
 var option:String="1"
 
 
@@ -22,6 +24,9 @@ fun pickOption()
     println("2.Remove transaction")
     println("3.View all transaction")
     println("4.View sumarization")
+    println("5.View sumarization by category")
+    println("6.View sumarization of all categories")
+    println("7.View sumarization by types")
     print("Enter option: ")
     option=readln()
 
@@ -35,8 +40,10 @@ fun pickOption()
             val transactionCategory=readln().uppercase()
             print("Zadejte částku transakce:")
             val transactionAmount=readln().toIntOrNull()?:0
+            print("Zadejte datum ve formátu (YYYY-MM-DD):")
+            val transactionDate=readln()
 
-            val newRecord=Transaction(name=transactionName, amount=transactionAmount,   type= TransactionType.valueOf(transactionType), category = TransactionCategory.valueOf(transactionCategory))
+            val newRecord=Transaction(name=transactionName, amount=transactionAmount,   type= TransactionType.valueOf(transactionType), category = TransactionCategory.valueOf(transactionCategory) ,date= LocalDate.parse(transactionDate))
             TransactionManager.create(newRecord)
         }
         "2"->{
@@ -47,6 +54,21 @@ fun pickOption()
         }
         "4"->{
             println("Vaš status je:${TransactionManager.sumarize()}")
+
+        }
+        "5"->
+        {
+            print("Zadejte název categorie:")
+            var category=readln().uppercase()
+            println("Sumarizace podle kategorie:${TransactionManager.sumarizeByCategory(category)}")
+
+        }
+        "6"->
+        {
+
+
+        }
+        "7"->{
 
         }
 
