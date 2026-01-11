@@ -1,7 +1,9 @@
+import BL.TransactionManager
 import Models.Transaction
 import Models.TransactionCategory
 import Models.TransactionType
 import java.time.LocalDate
+import java.time.YearMonth
 
 var option:String="1"
 
@@ -22,7 +24,7 @@ fun pickOption()
     println("0.Close")
     println("1.Create transaction")
     println("2.Remove transaction")
-    println("3.View all transaction")
+    println("3.View all transactions")
     println("4.View sumarization")
     println("5.View sumarization by category")
     println("6.View sumarization of all categories")
@@ -47,33 +49,68 @@ fun pickOption()
             TransactionManager.create(newRecord)
         }
         "2"->{
+            print("Zadejte id:")
+            var id=readln()
+
 
         }
         "3"->{
-           println(TransactionManager.getAll())
+            print("Zadej období (RRRR-MM) nebo potvrď Enterem pro aktuální měsíc: ")
+            val input = readln().trim() // .trim() odstraní náhodné mezery
+            var date=checkDate(input)
+
         }
         "4"->{
-            println("Vaš status je:${TransactionManager.sumarize()}")
+            print("Zadej období (RRRR-MM) nebo potvrď Enterem pro aktuální měsíc: ")
+            val input = readln().trim() // .trim() odstraní náhodné mezery
+            var date=checkDate(input)
+
 
         }
         "5"->
         {
             print("Zadejte název categorie:")
             var category=readln().uppercase()
-            println("Sumarizace podle kategorie:${TransactionManager.sumarizeByCategory(category)}")
+            print("Zadej období (RRRR-MM) nebo potvrď Enterem pro aktuální měsíc: ")
+            val input = readln().trim() 
+            var date=checkDate(input)
+
 
         }
         "6"->
         {
+            print("Zadej období (RRRR-MM) nebo potvrď Enterem pro aktuální měsíc: ")
+            val input = readln().trim() // .trim() odstraní náhodné mezery
+            var date=checkDate(input)
 
 
         }
         "7"->{
+            print("Zadej období (RRRR-MM) nebo potvrď Enterem pro aktuální měsíc: ")
+            val input = readln().trim() // .trim() odstraní náhodné mezery
+            var date=checkDate(input)
 
         }
 
     }
+    
 
 
+}
+fun checkDate(input: String): YearMonth
+{
+
+    val date = if (input.isEmpty()) {
+        YearMonth.now()
+    } else {
+        try {
+            YearMonth.parse(input)
+        } catch (e: Exception) {
+            println("Chyba: Špatný formát, nastavuji aktuální měsíc.")
+            YearMonth.now()
+        }
+    }
+
+    return date
 }
 
