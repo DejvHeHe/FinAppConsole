@@ -2,6 +2,8 @@ import BL.TransactionManager
 import Models.Transaction
 import Models.TransactionCategory
 import Models.TransactionType
+import Repo.TransactionRepository
+import jdk.nashorn.internal.objects.NativeJava.type
 import java.time.LocalDate
 import java.time.YearMonth
 
@@ -25,7 +27,7 @@ fun pickOption()
     println("1.Create transaction")
     println("2.Remove transaction")
     println("3.View all transactions")
-    println("4.View sumarization")
+    println("4.View balance")
     println("5.View sumarization by category")
     println("6.View sumarization of all categories")
     println("7.View sumarization by types")
@@ -58,12 +60,14 @@ fun pickOption()
             print("Zadej období (RRRR-MM) nebo potvrď Enterem pro aktuální měsíc: ")
             val input = readln().trim() // .trim() odstraní náhodné mezery
             var date=checkDate(input)
+            println("Vaše transakce ${TransactionManager.getAll(date)}")
 
         }
         "4"->{
             print("Zadej období (RRRR-MM) nebo potvrď Enterem pro aktuální měsíc: ")
             val input = readln().trim() // .trim() odstraní náhodné mezery
             var date=checkDate(input)
+            println("Váš balance:${TransactionManager.getBalance(date)}")
 
 
         }
@@ -74,6 +78,7 @@ fun pickOption()
             print("Zadej období (RRRR-MM) nebo potvrď Enterem pro aktuální měsíc: ")
             val input = readln().trim() 
             var date=checkDate(input)
+            println("Suma dané kategorie je:${TransactionManager.sumByCategory(TransactionCategory.valueOf(category),date)}")
 
 
         }
@@ -82,13 +87,17 @@ fun pickOption()
             print("Zadej období (RRRR-MM) nebo potvrď Enterem pro aktuální měsíc: ")
             val input = readln().trim() // .trim() odstraní náhodné mezery
             var date=checkDate(input)
+            println("Sumy podle kategorii:${TransactionManager.sumAllCategories(date)}")
 
 
         }
         "7"->{
+            print("Zadejte název typu:")
+            var type=readln().uppercase()
             print("Zadej období (RRRR-MM) nebo potvrď Enterem pro aktuální měsíc: ")
             val input = readln().trim() // .trim() odstraní náhodné mezery
             var date=checkDate(input)
+            println("Suma podle typu:${TransactionManager.sumByType(TransactionType.valueOf(type),date)}")
 
         }
 
