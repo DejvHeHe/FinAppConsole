@@ -5,11 +5,12 @@ import Models.TransactionCategory
 import Models.TransactionType
 import Repo.TransactionRepository
 import java.time.YearMonth
+import  TransactionInterface
 
-object TransactionManager {
+object TransactionManager:TransactionInterface {
 
 
-    fun create(transaction: Transaction)
+    override fun create(transaction: Transaction)
     {
         if(transaction.amount <= 0)
         {
@@ -25,23 +26,23 @@ object TransactionManager {
 
 
     }
-    fun getAll(date: YearMonth): List<Transaction>
+    override fun getAll(date: YearMonth): List<Transaction>
     {
         return TransactionRepository.getAll(date)
     }
-    fun getBalance(date: YearMonth): Int
+    override fun getBalance(date: YearMonth): Int
     {
         return TransactionRepository.getBalance(date)
     }
-    fun sumByCategory(category: TransactionCategory,date: YearMonth): Int
+    override fun sumByCategory(category: TransactionCategory,date: YearMonth): Int
     {
         return TransactionRepository.sumByCategory(category, date)
     }
-    fun sumByType(type: TransactionType, date: YearMonth): Int
+    override fun sumByType(type: TransactionType, date: YearMonth): Int
     {
         return TransactionRepository.sumByType(type, date)
     }
-    fun sumAllCategories(date: YearMonth): Map<String, Int>
+    override fun sumAllCategories(date: YearMonth): Map<String, Int>
     {
         return TransactionRepository.sumAllCategories(date)
 
