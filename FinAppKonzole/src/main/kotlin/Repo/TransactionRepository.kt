@@ -4,6 +4,7 @@ import Models.Transaction
 import Models.TransactionCategory
 import Models.TransactionType
 import java.time.YearMonth
+import java.util.UUID
 
 
 object TransactionRepository {
@@ -13,6 +14,11 @@ object TransactionRepository {
     {
        transactions.add(transaction)
         return true
+    }
+    fun remove(id: UUID)
+    {
+        transactions.removeIf { it.id == id }
+        println("Removed $id")
     }
 
     fun getAll(date: YearMonth): List<Transaction>

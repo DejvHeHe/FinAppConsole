@@ -5,6 +5,7 @@ import Models.Transaction
 import Models.TransactionCategory
 import Models.TransactionType
 import java.time.LocalDate
+import java.util.UUID
 
 fun TransactionCreate() {
     print("Zadejte název transakce: ")
@@ -54,14 +55,18 @@ fun TransactionCreate() {
             }
         }
     }
-
+    print("Zadejte popis:")
+    var transactionDescription=readln()
+    val transactionId = UUID.randomUUID()
 
     val newRecord = Transaction(
+        id=transactionId,
         name = transactionName,
         amount = transactionAmount,
         type = transactionType!!,
         category = transactionCategory!!,
-        date = transactionDate!!
+        date = transactionDate!!,
+        description = transactionDescription
     )
 
     TransactionManager.create(newRecord)

@@ -2,6 +2,7 @@ import Options.SumByAllCategories
 import Options.SumByCategory
 import Options.SumByTypes
 import Options.TransactionCreate
+import Options.TransactionRemove
 import Options.ViewAll
 import Options.ViewBalance
 
@@ -39,8 +40,7 @@ fun pickOption()
             TransactionCreate()
         }
         "2"->{
-            print("Zadejte id:")
-            var id=readln()
+            TransactionRemove()
 
 
         }
@@ -64,6 +64,15 @@ fun pickOption()
         "7"->{
             SumByTypes()
 
+        }
+        "8"->{
+            //Update
+        }
+        "9"->{
+            //GetOne
+        }
+        "10"->{
+            //CreateReacuring
         }
 
     }

@@ -6,6 +6,7 @@ import Models.TransactionType
 import Repo.TransactionRepository
 import java.time.YearMonth
 import  TransactionInterface
+import java.util.UUID
 
 object TransactionManager:TransactionInterface {
 
@@ -25,6 +26,10 @@ object TransactionManager:TransactionInterface {
         println("Byla transakce vytvořena? ${TransactionRepository.create(transaction)}")
 
 
+    }
+
+    override fun remove(id: UUID) {
+        TransactionRepository.remove(id)
     }
     override fun getAll(date: YearMonth): List<Transaction>
     {
