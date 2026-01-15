@@ -1,6 +1,7 @@
 import Models.Transaction
 import Models.TransactionCategory
 import Models.TransactionType
+import java.time.LocalDate
 import java.time.YearMonth
 import java.util.UUID
 
@@ -17,4 +18,10 @@ interface TransactionInterface {
     fun sumByType(type: TransactionType, date: YearMonth): Int
 
     fun sumAllCategories(date: YearMonth): Map<String, Int>
+
+    fun update(id: UUID,name: String?=null,type: TransactionType?=null,category: TransactionCategory?=null,amount: Int?=null,
+               date: LocalDate?=null,
+               description: String?=null)
+
+    fun getById(id: UUID): Transaction?
 }

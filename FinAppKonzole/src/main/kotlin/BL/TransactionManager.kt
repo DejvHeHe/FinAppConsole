@@ -6,6 +6,7 @@ import Models.TransactionType
 import Repo.TransactionRepository
 import java.time.YearMonth
 import  TransactionInterface
+import java.time.LocalDate
 import java.util.UUID
 
 object TransactionManager:TransactionInterface {
@@ -51,6 +52,38 @@ object TransactionManager:TransactionInterface {
     {
         return TransactionRepository.sumAllCategories(date)
 
+    }
+
+    override fun update(
+        id: UUID,
+        name: String,
+        type: TransactionType,
+        category: TransactionCategory,
+        amount: Int,
+        date: LocalDate,
+        description: String
+    )
+    {
+        val transactionFound=getById(id)
+        if(transactionFound!=null)
+        {
+            println("Transakce neexistuje")
+
+        }
+        TransactionRepository.update(id:UUID,
+            name:String,
+            type:TransactionType,
+            category:TransactionCategory,
+            amount:Int,
+            date:LocalDate,
+            description:String)
+
+
+    }
+
+
+    override fun getById(id: UUID): Transaction? {
+        return (TransactionRepository.getById(id))
     }
 
 

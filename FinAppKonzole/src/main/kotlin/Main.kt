@@ -5,6 +5,8 @@ import Options.TransactionCreate
 import Options.TransactionRemove
 import Options.ViewAll
 import Options.ViewBalance
+import Options.getById
+import Options.transactionUpdate
 
 var option:String="1"
 
@@ -31,6 +33,9 @@ fun pickOption()
     println("5.View sumarization by category")
     println("6.View sumarization of all categories")
     println("7.View sumarization by types")
+    println("8.Update transaction")
+    println("9.GetById")
+    println("10.Create reacuring transaction")
     print("Enter option: ")
     option=readln()
 
@@ -66,10 +71,10 @@ fun pickOption()
 
         }
         "8"->{
-            //Update
+            transactionUpdate()
         }
         "9"->{
-            //GetOne
+            getById()
         }
         "10"->{
             //CreateReacuring

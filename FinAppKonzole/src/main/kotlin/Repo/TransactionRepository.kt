@@ -3,6 +3,7 @@ package Repo
 import Models.Transaction
 import Models.TransactionCategory
 import Models.TransactionType
+import java.time.LocalDate
 import java.time.YearMonth
 import java.util.UUID
 
@@ -82,6 +83,29 @@ object TransactionRepository {
         return sumByCatgories
 
 
+    }
+
+    fun getById(id: UUID): Transaction?
+    {
+        return transactions.find { it.id == id }
+    }
+    fun update(id: UUID,
+               name: String,
+               type: TransactionType,
+               category: TransactionCategory,
+               amount: Int,
+               date: LocalDate,
+               description: String):Boolean
+    {
+        for(transaction in transactions)
+        {
+            if (transaction.id == id)
+            {
+
+
+            }
+        }
+        return true
     }
 
 }
