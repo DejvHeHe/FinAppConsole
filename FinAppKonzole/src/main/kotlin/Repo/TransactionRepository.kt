@@ -89,22 +89,22 @@ object TransactionRepository {
     {
         return transactions.find { it.id == id }
     }
-    fun update(id: UUID,
-               name: String,
-               type: TransactionType,
-               category: TransactionCategory,
-               amount: Int,
-               date: LocalDate,
-               description: String):Boolean
-    {
-        for(transaction in transactions)
-        {
-            if (transaction.id == id)
-            {
+    fun update(id: UUID, changes: Map<String, Any?>): Boolean {
+        val index = transactions.indexOfFirst { it.id == id }
+        if (index == -1) return false
 
+        val old = transactions[index]
 
-            }
-        }
+        val updated = old.copy(
+            name = changes["name"] as? String ?: old.name,
+            type = changes["type"] as? TransactionType ?: old.type,
+            category = changes["category"] as? TransactionCategory ?: old.category,
+            amount = changes["amount"] as? Int ?: old.amount,
+            date = changes["date"] as? LocalDate ?: old.date,
+            description = changes["description"] as? String ?: old.description
+        )
+
+        transactions[index] = updated
         return true
     }
 

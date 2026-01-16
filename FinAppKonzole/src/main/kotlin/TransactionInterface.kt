@@ -21,7 +21,7 @@ interface TransactionInterface {
 
     fun update(id: UUID,name: String?=null,type: TransactionType?=null,category: TransactionCategory?=null,amount: Int?=null,
                date: LocalDate?=null,
-               description: String?=null)
+               description: String?=null):Boolean
 
     fun getById(id: UUID): Transaction?
 }

@@ -18,15 +18,18 @@ fun transactionUpdate(){
     {
         try {
             print("Zadejte id:")
-            id= UUID.fromString(readln())
-            if(id==null)
+            var input= readln()
+            if(input==null)
             {
                 print("id nesmí být prazdné")
             }
+            id = UUID.fromString(input)
+
+
             print("Zadejte nové jmeno:")
             transactionName = readln()
             print("Zadejte nový type")
-            var input= readln()
+            input= readln()
             if (input.isNotEmpty()) {
                 try {
                     transactionType = TransactionType.valueOf(input.uppercase())
@@ -57,6 +60,17 @@ fun transactionUpdate(){
 
             print("Zadejte nový popisek:")
             transactionDescription = readln()
+
+
+            println("Proběhnul update: ${TransactionManager.update(
+                id = id,
+                name = transactionName,
+                type = transactionType,
+                category = transactionCategory,
+                amount = transactionAmount,
+                date = transactionDate,
+                description = transactionDescription
+            )}")
 
 
         }

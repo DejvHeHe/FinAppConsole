@@ -56,27 +56,37 @@ object TransactionManager:TransactionInterface {
 
     override fun update(
         id: UUID,
-        name: String,
-        type: TransactionType,
-        category: TransactionCategory,
-        amount: Int,
-        date: LocalDate,
-        description: String
-    )
+        name: String?,
+        type: TransactionType?,
+        category: TransactionCategory?,
+        amount: Int?,
+        date: LocalDate?,
+        description: String?
+    ):Boolean
     {
         val transactionFound=getById(id)
-        if(transactionFound!=null)
+        if(transactionFound==null)
         {
             println("Transakce neexistuje")
+            return false
 
         }
-        TransactionRepository.update(id:UUID,
-            name:String,
-            type:TransactionType,
-            category:TransactionCategory,
-            amount:Int,
-            date:LocalDate,
-            description:String)
+        else{
+            val changes = mutableMapOf<String, Any?>()
+
+
+            if (name != null) changes["name"] = name
+            if (type != null) changes["type"] = type
+            if (category != null) changes["category"] = category
+            if (amount != null) changes["amount"] = amount
+            if (date != null) changes["date"] = date
+            if (description != null) changes["description"] = description
+
+            TransactionRepository.update(id,changes)
+
+        }
+        return true
+
 
 
     }
