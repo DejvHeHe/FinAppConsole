@@ -24,4 +24,5 @@ interface TransactionInterface {
                description: String?=null):Boolean
 
     fun getById(id: UUID): Transaction?
+    fun setAsReacuring(id: UUID, date: LocalDate): Boolean
 }

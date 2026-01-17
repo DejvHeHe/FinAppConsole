@@ -35,7 +35,7 @@ fun pickOption()
     println("7.View sumarization by types")
     println("8.Update transaction")
     println("9.GetById")
-    println("10.Create reacuring transaction")
+    println("10.Create multiple transactions")
     print("Enter option: ")
     option=readln()
 
@@ -77,7 +77,7 @@ fun pickOption()
             getById()
         }
         "10"->{
-            //CreateReacuring
+            //CreateMultiple
         }
 
     }

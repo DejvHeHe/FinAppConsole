@@ -96,5 +96,14 @@ object TransactionManager:TransactionInterface {
         return (TransactionRepository.getById(id))
     }
 
+    override fun setAsReacuring(id: UUID, date: LocalDate): Boolean {
+        val transactionOrigin=getById(id)
+        if(transactionOrigin==null)
+        {
+            return false
+        }
+        val originTransactiovAtributes=transactionOrigin.
+    }
+
 
 }
