@@ -1,6 +1,6 @@
 package Options
 
-import BL.TransactionManager
+import BL.transactionManager
 import java.util.UUID
 
 fun getById()
@@ -18,7 +18,7 @@ fun getById()
         else{
             try {
                 id = UUID.fromString(input)
-                println("Transakce:${TransactionManager.getById(id)}")
+                println("Transakce:${transactionManager.getById(id)}")
 
             }
             catch (e: Exception)

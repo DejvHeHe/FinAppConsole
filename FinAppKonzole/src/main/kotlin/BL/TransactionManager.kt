@@ -1,18 +1,18 @@
 package BL
 
-import Models.Transaction
-import Models.TransactionCategory
-import Models.TransactionType
-import Repo.TransactionRepository
+import Models.transaction
+import Models.transactionCategory
+import Models.transactionType
+import Repo.transactionRepository
 import java.time.YearMonth
-import  TransactionInterface
+import  transactionInterface
 import java.time.LocalDate
 import java.util.UUID
 
-object TransactionManager:TransactionInterface {
+object transactionManager:transactionInterface {
 
 
-    override fun create(transaction: Transaction)
+    override fun create(transaction: transaction)
     {
         if(transaction.amount <= 0)
         {
@@ -24,41 +24,41 @@ object TransactionManager:TransactionInterface {
         }
 
 
-        println("Byla transakce vytvořena? ${TransactionRepository.create(transaction)}")
+        println("Byla transakce vytvořena? ${transactionRepository.create(transaction)}")
 
 
     }
 
     override fun remove(id: UUID) {
-        TransactionRepository.remove(id)
+        transactionRepository.remove(id)
     }
-    override fun getAll(date: YearMonth): List<Transaction>
+    override fun getAll(date: YearMonth): List<transaction>
     {
-        return TransactionRepository.getAll(date)
+        return transactionRepository.getAll(date)
     }
     override fun getBalance(date: YearMonth): Int
     {
-        return TransactionRepository.getBalance(date)
+        return transactionRepository.getBalance(date)
     }
-    override fun sumByCategory(category: TransactionCategory,date: YearMonth): Int
+    override fun sumByCategory(category: transactionCategory,date: YearMonth): Int
     {
-        return TransactionRepository.sumByCategory(category, date)
+        return transactionRepository.sumByCategory(category, date)
     }
-    override fun sumByType(type: TransactionType, date: YearMonth): Int
+    override fun sumByType(type: transactionType, date: YearMonth): Int
     {
-        return TransactionRepository.sumByType(type, date)
+        return transactionRepository.sumByType(type, date)
     }
     override fun sumAllCategories(date: YearMonth): Map<String, Int>
     {
-        return TransactionRepository.sumAllCategories(date)
+        return transactionRepository.sumAllCategories(date)
 
     }
 
     override fun update(
         id: UUID,
         name: String?,
-        type: TransactionType?,
-        category: TransactionCategory?,
+        type: transactionType?,
+        category: transactionCategory?,
         amount: Int?,
         date: LocalDate?,
         description: String?
@@ -82,7 +82,7 @@ object TransactionManager:TransactionInterface {
             if (date != null) changes["date"] = date
             if (description != null) changes["description"] = description
 
-            TransactionRepository.update(id,changes)
+            transactionRepository.update(id,changes)
 
         }
         return true
@@ -92,18 +92,11 @@ object TransactionManager:TransactionInterface {
     }
 
 
-    override fun getById(id: UUID): Transaction? {
-        return (TransactionRepository.getById(id))
+    override fun getById(id: UUID): transaction? {
+        return (transactionRepository.getById(id))
     }
 
-    override fun setAsReacuring(id: UUID, date: LocalDate): Boolean {
-        val transactionOrigin=getById(id)
-        if(transactionOrigin==null)
-        {
-            return false
-        }
-        val originTransactiovAtributes=transactionOrigin.
-    }
+
 
 
 }

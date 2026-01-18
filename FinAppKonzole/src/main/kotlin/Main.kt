@@ -1,12 +1,15 @@
-import Options.SumByAllCategories
-import Options.SumByCategory
-import Options.SumByTypes
-import Options.TransactionCreate
-import Options.TransactionRemove
-import Options.ViewAll
-import Options.ViewBalance
+
+import Options.create
+import Options.createReacuring
 import Options.getById
-import Options.transactionUpdate
+import Options.remove
+import Options.sumByAllCategories
+import Options.sumByCategory
+import Options.sumByTypes
+
+import Options.update
+import Options.viewAll
+import Options.viewBalance
 
 var option:String="1"
 
@@ -25,59 +28,59 @@ fun main()
 }
 fun pickOption()
 {
-    println("0.Close")
-    println("1.Create transaction")
-    println("2.Remove transaction")
-    println("3.View all transactions")
-    println("4.View balance")
-    println("5.View sumarization by category")
-    println("6.View sumarization of all categories")
-    println("7.View sumarization by types")
-    println("8.Update transaction")
-    println("9.GetById")
-    println("10.Create multiple transactions")
-    print("Enter option: ")
+    println("0. Zavřít")
+    println("1. Vytvořit transakci")
+    println("2. Smazat transakci")
+    println("3. Zobrazit všechny transakce")
+    println("4. Zobrazit zůstatek")
+    println("5. Zobrazit přehled podle kategorie")
+    println("6. Zobrazit přehled všech kategorií")
+    println("7. Zobrazit přehled podle typu")
+    println("8. Upravit transakci")
+    println("9. Vyhledat podle ID")
+    println("10. Vytvořit opakovanou transakci")
+    print("Vyberte možnost: ")
     option=readln()
 
     when(option)
     {
         "1"->{
-            TransactionCreate()
+            create()
         }
         "2"->{
-            TransactionRemove()
+            remove()
 
 
         }
         "3"->{
-            ViewAll()
+            viewAll()
 
         }
         "4"->{
-            ViewBalance()
+            viewBalance()
         }
         "5"->
         {
-            SumByCategory()
+            sumByCategory()
 
         }
         "6"->
         {
-            SumByAllCategories()
+            sumByAllCategories()
 
         }
         "7"->{
-            SumByTypes()
+            sumByTypes()
 
         }
         "8"->{
-            transactionUpdate()
+            update()
         }
         "9"->{
             getById()
         }
         "10"->{
-            //CreateMultiple
+            createReacuring()
         }
 
     }

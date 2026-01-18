@@ -1,15 +1,15 @@
 package Models
 
-enum class TransactionCategory(val Type: TransactionType) {
+enum class transactionCategory(val type: transactionType) {
     //INCOME
-    SALARY(TransactionType.INCOME),
-    PRESENT(TransactionType.INCOME),
-    ALLOWANCE(TransactionType.INCOME),
+    SALARY(transactionType.INCOME),
+    PRESENT(transactionType.INCOME),
+    ALLOWANCE(transactionType.INCOME),
 
     //EXPENSE
-    SAVINGS(TransactionType.EXPENSE),
-    FUN(TransactionType.EXPENSE),
-    INVESTMENT(TransactionType.EXPENSE),
-    FOOD(TransactionType.EXPENSE),
-    RENT(TransactionType.EXPENSE)
+    SAVINGS(transactionType.EXPENSE),
+    FUN(transactionType.EXPENSE),
+    INVESTMENT(transactionType.EXPENSE),
+    FOOD(transactionType.EXPENSE),
+    RENT(transactionType.EXPENSE)
 }

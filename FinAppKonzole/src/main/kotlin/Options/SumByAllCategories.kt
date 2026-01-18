@@ -1,11 +1,11 @@
 package Options
 
-import BL.TransactionManager
+import BL.transactionManager
 import checkDate
 
-fun SumByAllCategories(){
+fun sumByAllCategories(){
     print("Zadej období (RRRR-MM) nebo potvrď Enterem pro aktuální měsíc: ")
     val input = readln().trim() // .trim() odstraní náhodné mezery
     var date=checkDate(input)
-    println("Sumy podle kategorii:${TransactionManager.sumAllCategories(date)}")
+    println("Sumy podle kategorii:${transactionManager.sumAllCategories(date)}")
 }

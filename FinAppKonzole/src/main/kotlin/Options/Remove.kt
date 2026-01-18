@@ -1,9 +1,9 @@
 package Options
 
-import BL.TransactionManager
+import BL.transactionManager
 import java.util.UUID
 
-fun TransactionRemove()
+fun remove()
 {
     var id:UUID?=null
     while(id==null)
@@ -16,7 +16,7 @@ fun TransactionRemove()
                 print("id nesmí být prazdné")
             }
             else{
-                TransactionManager.remove(id)
+                transactionManager.remove(id)
 
             }
 
