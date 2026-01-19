@@ -1,3 +1,5 @@
+package helpFunctions
+
 import java.time.YearMonth
 
 fun checkDate(input: String): YearMonth

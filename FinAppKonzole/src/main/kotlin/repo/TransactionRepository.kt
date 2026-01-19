@@ -1,8 +1,8 @@
-package Repo
+package repo
 
-import Models.transaction
-import Models.transactionCategory
-import Models.transactionType
+import models.transaction
+import models.transactionCategory
+import models.transactionType
 import java.time.LocalDate
 import java.time.YearMonth
 import java.util.UUID
@@ -15,10 +15,10 @@ object transactionRepository {
     {
         return transactions.add(transaction)
     }
-    fun remove(id: UUID)
+    fun remove(id: UUID):Boolean
     {
-        transactions.removeIf { it.id == id }
-        println("Removed $id")
+        return (transactions.removeIf { it.id == id })
+
     }
 
     fun getAll(date: YearMonth): List<transaction>
@@ -72,14 +72,14 @@ object transactionRepository {
         return sum
 
     }
-    fun sumAllCategories(date: YearMonth): Map<String, Int>
+    fun sumAllCategories(date: YearMonth): Map<transactionCategory, Int>
     {
-        val sumByCatgories = mutableMapOf<String, Int>()
+        val sumByCategories = mutableMapOf<transactionCategory, Int>()
         for(category in transactionCategory.values())
         {
-            sumByCatgories[category.name]=sumByCategory(category, date)
+            sumByCategories[transactionCategory.valueOf(category.name)]=sumByCategory(category, date)
         }
-        return sumByCatgories
+        return sumByCategories
 
 
     }
@@ -104,7 +104,7 @@ object transactionRepository {
         )
 
         transactions[index] = updated
-        return true
+        return(old!=updated)
     }
 
 }

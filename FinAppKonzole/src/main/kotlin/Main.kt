@@ -1,15 +1,14 @@
 
-import Options.create
-import Options.createReacuring
-import Options.getById
-import Options.remove
-import Options.sumByAllCategories
-import Options.sumByCategory
-import Options.sumByTypes
+import options.create
+import options.createReacuring
+import options.getById
+import options.remove
+import options.sumByAllCategories
+import options.sumByTypes
 
-import Options.update
-import Options.viewAll
-import Options.viewBalance
+import options.update
+import options.viewAll
+import options.viewBalance
 
 var option:String="1"
 
@@ -33,12 +32,11 @@ fun pickOption()
     println("2. Smazat transakci")
     println("3. Zobrazit všechny transakce")
     println("4. Zobrazit zůstatek")
-    println("5. Zobrazit přehled podle kategorie")
-    println("6. Zobrazit přehled všech kategorií")
-    println("7. Zobrazit přehled podle typu")
-    println("8. Upravit transakci")
-    println("9. Vyhledat podle ID")
-    println("10. Vytvořit opakovanou transakci")
+    println("5. Zobrazit přehled všech kategorií")
+    println("6. Zobrazit přehled podle typu")
+    println("7. Upravit transakci")
+    println("8. Vyhledat podle ID")
+    println("9. Vytvořit opakovanou transakci")
     print("Vyberte možnost: ")
     option=readln()
 
@@ -59,27 +57,23 @@ fun pickOption()
         "4"->{
             viewBalance()
         }
-        "5"->
-        {
-            sumByCategory()
 
-        }
-        "6"->
+        "5"->
         {
             sumByAllCategories()
 
         }
-        "7"->{
+        "6"->{
             sumByTypes()
 
         }
-        "8"->{
+        "7"->{
             update()
         }
-        "9"->{
+        "8"->{
             getById()
         }
-        "10"->{
+        "9"->{
             createReacuring()
         }
 

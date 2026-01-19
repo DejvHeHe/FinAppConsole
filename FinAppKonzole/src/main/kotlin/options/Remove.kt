@@ -1,6 +1,6 @@
-package Options
+package options
 
-import BL.transactionManager
+import bl.transactionManager
 import java.util.UUID
 
 fun remove()
@@ -16,7 +16,15 @@ fun remove()
                 print("id nesmí být prazdné")
             }
             else{
-                transactionManager.remove(id)
+                try{
+                    transactionManager.remove(id)
+
+                }
+                catch(e: IllegalArgumentException)
+                {
+                    println("Chyba:${e.message}")
+                }
+
 
             }
 

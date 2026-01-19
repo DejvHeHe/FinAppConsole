@@ -1,6 +1,6 @@
-package Options
+package options
 
-import BL.transactionManager
+import bl.transactionManager
 import java.util.UUID
 
 fun getById()
@@ -10,7 +10,7 @@ fun getById()
     while(id == null)
     {
         print("Zadejte id transakce:")
-        var input=readln()
+        val input=readln()
         if (input.isEmpty())
         {
             println("Id nesmí být prazdné")

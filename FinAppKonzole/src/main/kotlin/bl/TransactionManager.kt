@@ -1,36 +1,37 @@
-package BL
+package bl
 
-import Models.transaction
-import Models.transactionCategory
-import Models.transactionType
-import Repo.transactionRepository
+import models.transaction
+import models.transactionCategory
+import models.transactionType
+import repo.transactionRepository
 import java.time.YearMonth
-import  transactionInterface
+import  interfaces.Transaction
 import java.time.LocalDate
 import java.util.UUID
 
-object transactionManager:transactionInterface {
+object transactionManager:Transaction {
 
 
-    override fun create(transaction: transaction)
+    override fun create(transaction: transaction):Boolean
     {
         if(transaction.amount <= 0)
         {
-            println("Musí být kladné")
+            throw IllegalArgumentException("Částka musí být kladná.")
         }
-        if(transaction.name.length <= 0)
+        if(transaction.name.isEmpty())
         {
-            println("Musí mít jmeno")
+            throw IllegalArgumentException("Název transakce nesmí být prázdný.")
         }
 
 
-        println("Byla transakce vytvořena? ${transactionRepository.create(transaction)}")
+
+        return(transactionRepository.create(transaction))
 
 
     }
 
-    override fun remove(id: UUID) {
-        transactionRepository.remove(id)
+    override fun remove(id: UUID): Boolean {
+        return(transactionRepository.remove(id))
     }
     override fun getAll(date: YearMonth): List<transaction>
     {
@@ -40,15 +41,12 @@ object transactionManager:transactionInterface {
     {
         return transactionRepository.getBalance(date)
     }
-    override fun sumByCategory(category: transactionCategory,date: YearMonth): Int
-    {
-        return transactionRepository.sumByCategory(category, date)
-    }
+
     override fun sumByType(type: transactionType, date: YearMonth): Int
     {
         return transactionRepository.sumByType(type, date)
     }
-    override fun sumAllCategories(date: YearMonth): Map<String, Int>
+    override fun sumAllCategories(date: YearMonth): Map<transactionCategory, Int>
     {
         return transactionRepository.sumAllCategories(date)
 
@@ -67,8 +65,7 @@ object transactionManager:transactionInterface {
         val transactionFound=getById(id)
         if(transactionFound==null)
         {
-            println("Transakce neexistuje")
-            return false
+            throw IllegalArgumentException("Transakce neexistuje")
 
         }
         else{
@@ -82,10 +79,10 @@ object transactionManager:transactionInterface {
             if (date != null) changes["date"] = date
             if (description != null) changes["description"] = description
 
-            transactionRepository.update(id,changes)
+            return(transactionRepository.update(id,changes))
 
         }
-        return true
+
 
 
 

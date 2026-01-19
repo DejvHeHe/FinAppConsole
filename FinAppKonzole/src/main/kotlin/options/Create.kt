@@ -1,9 +1,9 @@
-package Options
+package options
 
-import BL.transactionManager
-import Models.transaction
-import Models.transactionCategory
-import Models.transactionType
+import bl.transactionManager
+import models.transaction
+import models.transactionCategory
+import models.transactionType
 import java.time.LocalDate
 import java.util.UUID
 
@@ -67,6 +67,14 @@ fun create() {
         description = description
     )
 
-    transactionManager.create(newRecord)
+    try{
+        transactionManager.create(newRecord)
+
+    }
+    catch(e: IllegalArgumentException)
+    {
+        println("Chyba:${e.message}")
+    }
+
     println("Transakce '$name' byla úspěšně vytvořena.")
 }

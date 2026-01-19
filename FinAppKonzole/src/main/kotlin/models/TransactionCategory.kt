@@ -1,4 +1,4 @@
-package Models
+package models
 
 enum class transactionCategory(val type: transactionType) {
     //INCOME

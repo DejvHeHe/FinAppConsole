@@ -1,8 +1,8 @@
-package Options
+package options
 
-import BL.transactionManager
-import Models.transactionCategory
-import Models.transactionType
+import bl.transactionManager
+import models.transactionCategory
+import models.transactionType
 import java.time.LocalDate
 import java.util.UUID
 
@@ -64,22 +64,29 @@ fun update() {
             print("Zadejte nový popisek: ")
             description = readln().trim().ifEmpty { null }
 
-            // Volání manageru se sjednocenými názvy
-            val result = transactionManager.update(
-                id = id,
-                name = name,
-                type = type,
-                category = category,
-                amount = amount,
-                date = date,
-                description = description
-            )
+            try{
+                val result = transactionManager.update(
+                    id = id,
+                    name = name,
+                    type = type,
+                    category = category,
+                    amount = amount,
+                    date = date,
+                    description = description
+                )
 
-            println("Proběhnul update: $result")
+                println("Proběhnul update: $result")
+
+            }
+            catch(e: IllegalArgumentException)
+            {
+                println("Chyba:${e.message}")
+            }
+
 
         } catch (e: Exception) {
             println("Nastala chyba: ${e.message}")
-            id = null // Resetujeme ID, aby se cyklus opakoval při chybě UUID
+            id = null
         }
     }
 }
