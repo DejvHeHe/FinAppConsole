@@ -1,18 +1,18 @@
 package bl
 
-import models.transaction
-import models.transactionCategory
-import models.transactionType
-import repo.transactionRepository
+import models.Transaction
+import models.TransactionCategory
+import models.TransactionType
+import repo.TransactionRepository
 import java.time.YearMonth
-import  interfaces.Transaction
+import  interfaces.TransactionService
 import java.time.LocalDate
 import java.util.UUID
 
-object transactionManager:Transaction {
+object TransactionManager:TransactionService {
 
 
-    override fun create(transaction: transaction):Boolean
+    override fun create(transaction: Transaction):Boolean
     {
         if(transaction.amount <= 0)
         {
@@ -25,38 +25,38 @@ object transactionManager:Transaction {
 
 
 
-        return(transactionRepository.create(transaction))
+        return(TransactionRepository.create(transaction))
 
 
     }
 
     override fun remove(id: UUID): Boolean {
-        return(transactionRepository.remove(id))
+        return(TransactionRepository.remove(id))
     }
-    override fun getAll(date: YearMonth): List<transaction>
+    override fun getAll(date: YearMonth): List<Transaction>
     {
-        return transactionRepository.getAll(date)
+        return TransactionRepository.getAll(date)
     }
     override fun getBalance(date: YearMonth): Int
     {
-        return transactionRepository.getBalance(date)
+        return TransactionRepository.getBalance(date)
     }
 
-    override fun sumByType(type: transactionType, date: YearMonth): Int
+    override fun sumByType(type: TransactionType, date: YearMonth): Int
     {
-        return transactionRepository.sumByType(type, date)
+        return TransactionRepository.sumByType(type, date)
     }
-    override fun sumAllCategories(date: YearMonth): Map<transactionCategory, Int>
+    override fun sumAllCategories(date: YearMonth): Map<TransactionCategory, Int>
     {
-        return transactionRepository.sumAllCategories(date)
+        return TransactionRepository.sumAllCategories(date)
 
     }
 
     override fun update(
         id: UUID,
         name: String?,
-        type: transactionType?,
-        category: transactionCategory?,
+        type: TransactionType?,
+        category: TransactionCategory?,
         amount: Int?,
         date: LocalDate?,
         description: String?
@@ -79,7 +79,7 @@ object transactionManager:Transaction {
             if (date != null) changes["date"] = date
             if (description != null) changes["description"] = description
 
-            return(transactionRepository.update(id,changes))
+            return(TransactionRepository.update(id,changes))
 
         }
 
@@ -89,8 +89,8 @@ object transactionManager:Transaction {
     }
 
 
-    override fun getById(id: UUID): transaction? {
-        return (transactionRepository.getById(id))
+    override fun getById(id: UUID): Transaction? {
+        return (TransactionRepository.getById(id))
     }
 
 

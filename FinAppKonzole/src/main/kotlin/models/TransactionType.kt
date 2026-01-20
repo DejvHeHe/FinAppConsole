@@ -1,5 +1,5 @@
 package models
 
-enum class transactionType {
+enum class TransactionType {
     INCOME,EXPENSE
 }

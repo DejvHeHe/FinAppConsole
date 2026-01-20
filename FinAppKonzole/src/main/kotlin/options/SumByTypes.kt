@@ -1,14 +1,15 @@
 package options
 
-import bl.transactionManager
-import models.transactionType
+import bl.TransactionManager
+
 import helpFunctions.checkDate
+import helpFunctions.checkType
 
 fun sumByTypes() {
-    print("Zadejte název typu:")
-    val type=readln().uppercase()
+
+    val type= checkType()
     print("Zadej období (RRRR-MM) nebo potvrď Enterem pro aktuální měsíc: ")
     val input = readln().trim()
     val date=checkDate(input)
-    println("Suma podle typu:${transactionManager.sumByType(transactionType.valueOf(type),date)}")
+    println("Suma podle typu:${TransactionManager.sumByType(type,date)}")
 }

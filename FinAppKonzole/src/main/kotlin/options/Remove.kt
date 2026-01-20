@@ -1,40 +1,26 @@
 package options
 
-import bl.transactionManager
-import java.util.UUID
+import bl.TransactionManager
+import helpFunctions.checkId
+
 
 fun remove()
 {
-    var id:UUID?=null
-    while(id==null)
-    {
-        try {
-            println("Zadejte id:")
-            id= UUID.fromString(readln())
-            if(id==null)
-            {
-                print("id nesmí být prazdné")
-            }
-            else{
-                try{
-                    transactionManager.remove(id)
-
-                }
-                catch(e: IllegalArgumentException)
-                {
-                    println("Chyba:${e.message}")
-                }
-
-
-            }
-
-
-        }
-        catch(e:Exception) {
-            print("Nastala chyba:${e.message}")
-        }
+    val id= checkId()
+    try{
+        TransactionManager.remove(id)
 
     }
+    catch(e: IllegalArgumentException)
+    {
+        println("Chyba:${e.message}")
+    }
+
+
+
+
+
+
 
 
 

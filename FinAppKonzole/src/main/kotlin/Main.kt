@@ -1,6 +1,6 @@
 
-import options.create
-import options.createReacuring
+
+import options.createWithRecurrence
 import options.getById
 import options.remove
 import options.sumByAllCategories
@@ -36,14 +36,13 @@ fun pickOption()
     println("6. Zobrazit přehled podle typu")
     println("7. Upravit transakci")
     println("8. Vyhledat podle ID")
-    println("9. Vytvořit opakovanou transakci")
     print("Vyberte možnost: ")
     option=readln()
 
     when(option)
     {
         "1"->{
-            create()
+            createWithRecurrence()
         }
         "2"->{
             remove()
@@ -73,9 +72,7 @@ fun pickOption()
         "8"->{
             getById()
         }
-        "9"->{
-            createReacuring()
-        }
+
 
     }
     

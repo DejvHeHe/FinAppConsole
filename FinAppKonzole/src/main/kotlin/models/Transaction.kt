@@ -4,12 +4,12 @@ import java.time.LocalDate
 import java.util.UUID
 
 
-data class transaction (
+data class Transaction (
     val id: UUID,
     val name: String,
     val amount: Int,
-    val category: transactionCategory,
-    val type: transactionType,
+    val category: TransactionCategory,
+    val type: TransactionType,
     val date: LocalDate,
     val description: String
 )

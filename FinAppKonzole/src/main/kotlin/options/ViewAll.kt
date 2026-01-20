@@ -1,12 +1,12 @@
 package options
 
-import bl.transactionManager
+import bl.TransactionManager
 import helpFunctions.checkDate
 
 fun viewAll()
 {
     print("Zadej období (RRRR-MM) nebo potvrď Enterem pro aktuální měsíc: ")
-    val input = readln().trim() // .trim() odstraní náhodné mezery
+    val input = readln().trim()
     val date=checkDate(input)
-    println("Vaše transakce ${transactionManager.getAll(date)}")
+    println("Vaše transakce ${TransactionManager.getAll(date)}")
 }

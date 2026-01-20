@@ -1,80 +1,50 @@
 package options
 
-import bl.transactionManager
-import models.transaction
-import models.transactionCategory
-import models.transactionType
+import bl.TransactionManager
+import helpFunctions.checkCategory
+import helpFunctions.checkLocalDate
+import helpFunctions.checkType
+import models.Transaction
 import java.time.LocalDate
 import java.util.UUID
+import java.time.temporal.ChronoUnit
 
-fun create() {
-    print("Zadejte název transakce: ")
+fun createWithRecurrence() {
+    print("Zadejte název: ")
     val name = readln()
-
-    var type: transactionType? = null
-    while (type == null) {
-        print("Zadejte typ transakce (INCOME/EXPENSE): ")
-        val input = readln().uppercase().trim()
-        try {
-            type = transactionType.valueOf(input)
-        } catch (e: Exception) {
-            println("Chyba: Typ '$input' neexistuje. Zkuste to znovu.")
-        }
-    }
-
-    var category: transactionCategory? = null
-    while (category == null) {
-        print("Zadejte kategorii transakce: ")
-        val input = readln().uppercase().trim()
-        try {
-            category = transactionCategory.valueOf(input)
-        } catch (e: Exception) {
-            println("Chyba: Kategorie '$input' neexistuje. Zkuste to znovu.")
-        }
-    }
-
-    print("Zadejte částku transakce: ")
+    val type = checkType()
+    val category = checkCategory()
+    print("Zadejte částku: ")
     val amount = readln().toIntOrNull() ?: 0
-
-    var date: LocalDate? = null
-    while (date == null) {
-        print("Zadejte datum ve formátu (YYYY-MM-DD) nebo Enter pro dnešek: ")
-        val input = readln().trim()
-
-        if (input.isEmpty()) {
-            date = LocalDate.now()
-        } else {
-            try {
-                date = LocalDate.parse(input)
-            } catch (e: Exception) {
-                println("Chyba: Špatný formát data. Zkuste to znovu.")
-            }
-        }
-    }
-
-    print("Zadejte popis:")
     val description = readln()
 
-    val id = UUID.randomUUID()
+    val startDate = checkLocalDate("Zadejte datum (Enter pro dnešek): ", LocalDate.now())!!
+    val lastDate = checkLocalDate("Zadejte datum konce opakování (Enter pro jednorázovou): ")
 
-    val newRecord = transaction(
-        id = id,
-        name = name,
-        amount = amount,
-        type = type,
-        category = category,
-        date = date,
-        description = description
-    )
+    val monthsToCreate = if (lastDate != null) {
+        if (lastDate.isBefore(startDate)) {
+            println("Chyba: Konec je před začátkem.")
+            return
+        }
+        ChronoUnit.MONTHS.between(startDate.withDayOfMonth(1), lastDate.withDayOfMonth(1))
+    } else 0L
 
-    try{
-        transactionManager.create(newRecord)
-
+    for (i in 0..monthsToCreate) {
+        val date = startDate.plusMonths(i)
+        try {
+            TransactionManager.create(Transaction(
+                id = UUID.randomUUID(),
+                name = name,
+                amount = amount,
+                type = type,
+                category = category,
+                date = date,
+                description = description
+            ))
+            println("Uloženo pro datum $date")
+        } catch (e: IllegalArgumentException) {
+            println("Chyba: ${e.message}")
+            break
+        }
     }
-    catch(e: IllegalArgumentException)
-    {
-        println("Chyba:${e.message}")
-    }
-
-    println("Transakce '$name' byla úspěšně vytvořena.")
 }

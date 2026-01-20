@@ -1,17 +1,17 @@
 package repo
 
-import models.transaction
-import models.transactionCategory
-import models.transactionType
+import models.Transaction
+import models.TransactionCategory
+import models.TransactionType
 import java.time.LocalDate
 import java.time.YearMonth
 import java.util.UUID
 
 
-object transactionRepository {
-    private val transactions = mutableListOf<transaction>()
+object TransactionRepository {
+    private val transactions = mutableListOf<Transaction>()
 
-    fun create(transaction: transaction): Boolean
+    fun create(transaction: Transaction): Boolean
     {
         return transactions.add(transaction)
     }
@@ -21,7 +21,7 @@ object transactionRepository {
 
     }
 
-    fun getAll(date: YearMonth): List<transaction>
+    fun getAll(date: YearMonth): List<Transaction>
     {
 
         val transactionsMoth= transactions.filter { YearMonth.from(it.date) == date }
@@ -35,11 +35,11 @@ object transactionRepository {
         val transactionsMoth=getAll(date)
         for (transaction in transactionsMoth)
         {
-            if(transaction.type == transactionType.EXPENSE)
+            if(transaction.type == TransactionType.EXPENSE)
             {
                 sumExpenses+=transaction.amount
             }
-            if (transaction.type == transactionType.INCOME)
+            if (transaction.type == TransactionType.INCOME)
             {
                 sumIncomes+=transaction.amount
             }
@@ -48,7 +48,7 @@ object transactionRepository {
         balance+=sumIncomes-sumExpenses
         return balance
     }
-    fun sumByCategory(category: transactionCategory, date: YearMonth): Int
+    fun sumByCategory(category: TransactionCategory, date: YearMonth): Int
     {
         val transactionsMoth=getAll(date)
         val transactionsCategory=transactionsMoth.filter { it.category == category }
@@ -60,7 +60,7 @@ object transactionRepository {
         }
         return sum
     }
-    fun sumByType(type: transactionType, date: YearMonth): Int
+    fun sumByType(type: TransactionType, date: YearMonth): Int
     {
         val transactionsMoth=getAll(date)
         val transactionsType=transactionsMoth.filter { it.type == type }
@@ -72,19 +72,19 @@ object transactionRepository {
         return sum
 
     }
-    fun sumAllCategories(date: YearMonth): Map<transactionCategory, Int>
+    fun sumAllCategories(date: YearMonth): Map<TransactionCategory, Int>
     {
-        val sumByCategories = mutableMapOf<transactionCategory, Int>()
-        for(category in transactionCategory.values())
+        val sumByCategories = mutableMapOf<TransactionCategory, Int>()
+        for(category in TransactionCategory.values())
         {
-            sumByCategories[transactionCategory.valueOf(category.name)]=sumByCategory(category, date)
+            sumByCategories[TransactionCategory.valueOf(category.name)]=sumByCategory(category, date)
         }
         return sumByCategories
 
 
     }
 
-    fun getById(id: UUID): transaction?
+    fun getById(id: UUID): Transaction?
     {
         return transactions.find { it.id == id }
     }
@@ -96,8 +96,8 @@ object transactionRepository {
 
         val updated = old.copy(
             name = changes["name"] as? String ?: old.name,
-            type = changes["type"] as? transactionType ?: old.type,
-            category = changes["category"] as? transactionCategory ?: old.category,
+            type = changes["type"] as? TransactionType ?: old.type,
+            category = changes["category"] as? TransactionCategory ?: old.category,
             amount = changes["amount"] as? Int ?: old.amount,
             date = changes["date"] as? LocalDate ?: old.date,
             description = changes["description"] as? String ?: old.description

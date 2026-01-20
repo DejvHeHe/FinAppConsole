@@ -1,24 +1,22 @@
 package options
 
-import bl.transactionManager
-import models.transactionCategory
-import models.transactionType
+import bl.TransactionManager
+import helpFunctions.checkCategory
+import helpFunctions.checkLocalDate
+import helpFunctions.checkType
+import models.TransactionCategory
+import models.TransactionType
 import java.time.LocalDate
 import java.util.UUID
 
 fun update() {
-    var name: String? = null
-    var date: LocalDate? = null
-    var category: transactionCategory? = null
-    var type: transactionType? = null
-    var amount: Int? = null
-    var description: String? = null
+
     var id: UUID? = null
 
     while (id == null) {
         try {
             print("Zadejte id: ")
-            var input = readln().trim()
+            val input = readln().trim()
             if (input.isEmpty()) {
                 println("ID nesmí být prázdné!")
                 continue
@@ -26,46 +24,21 @@ fun update() {
             id = UUID.fromString(input)
 
             print("Zadejte nové jméno: ")
-            name = readln().trim().ifEmpty { null }
+           val name = readln().trim().ifEmpty { null }
 
-            print("Zadejte nový typ (INCOME/EXPENSE): ")
-            input = readln().uppercase().trim()
-            if (input.isNotEmpty()) {
-                try {
-                    type = transactionType.valueOf(input)
-                } catch (e: Exception) {
-                    println("Neplatný typ, hodnota nebude změněna.")
-                }
-            }
-
-            print("Zadejte novou kategorii: ")
-            input = readln().uppercase().trim()
-            if (input.isNotEmpty()) {
-                try {
-                    category = transactionCategory.valueOf(input)
-                } catch (e: Exception) {
-                    println("Neplatná kategorie, hodnota nebude změněna.")
-                }
-            }
+            val type= checkType()
+            val category= checkCategory()
 
             print("Zadejte novou hodnotu: ")
-            amount = readln().toIntOrNull()
+           val amount = readln().toIntOrNull()
 
-            print("Zadejte nové datum (YYYY-MM-DD): ")
-            input = readln().trim()
-            if (input.isNotEmpty()) {
-                try {
-                    date = LocalDate.parse(input)
-                } catch (e: Exception) {
-                    println("Neplatný formát data, hodnota nebude změněna.")
-                }
-            }
+            val date= checkLocalDate("Zadejte datum ve formatu YYYY-MM-DD . nebo Enter pro dnešek:", LocalDate.now())
 
             print("Zadejte nový popisek: ")
-            description = readln().trim().ifEmpty { null }
+            val description = readln().trim().ifEmpty { null }
 
             try{
-                val result = transactionManager.update(
+                val result = TransactionManager.update(
                     id = id,
                     name = name,
                     type = type,

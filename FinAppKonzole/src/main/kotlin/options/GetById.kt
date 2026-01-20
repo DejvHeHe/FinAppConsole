@@ -1,31 +1,23 @@
 package options
 
-import bl.transactionManager
-import java.util.UUID
+import bl.TransactionManager
+import helpFunctions.checkId
+
 
 fun getById()
 {
-    var id: UUID? = null
+    val id= checkId()
 
-    while(id == null)
-    {
-        print("Zadejte id transakce:")
-        val input=readln()
-        if (input.isEmpty())
-        {
-            println("Id nesmí být prazdné")
-        }
-        else{
-            try {
-                id = UUID.fromString(input)
-                println("Transakce:${transactionManager.getById(id)}")
+    try {
 
-            }
-            catch (e: Exception)
-            {
-                println("Došlo k chybě ${e.message}")
-            }
-        }
+        println("Transakce:${TransactionManager.getById(id)}")
+
     }
+    catch (e: Exception)
+    {
+        println("Došlo k chybě ${e.message}")
+    }
+
+
 
 }
