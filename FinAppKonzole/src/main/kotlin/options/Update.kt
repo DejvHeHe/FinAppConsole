@@ -1,9 +1,8 @@
 package options
 
 import bl.TransactionManager
-import helpFunctions.checkCategory
 import helpFunctions.checkLocalDate
-import helpFunctions.checkType
+import helpFunctions.readEnum
 import models.TransactionCategory
 import models.TransactionType
 import java.time.LocalDate
@@ -26,8 +25,8 @@ fun update() {
             print("Zadejte nové jméno: ")
            val name = readln().trim().ifEmpty { null }
 
-            val type= checkType()
-            val category= checkCategory()
+            val type = readEnum<TransactionType>("Zadejte typ(EXPENSE/INCOME):")
+            val category = readEnum<TransactionCategory>("Zadejte kategorii:")
 
             print("Zadejte novou hodnotu: ")
            val amount = readln().toIntOrNull()

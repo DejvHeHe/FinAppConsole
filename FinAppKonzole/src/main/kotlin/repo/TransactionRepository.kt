@@ -75,7 +75,7 @@ object TransactionRepository {
     fun sumAllCategories(date: YearMonth): Map<TransactionCategory, Int>
     {
         val sumByCategories = mutableMapOf<TransactionCategory, Int>()
-        for(category in TransactionCategory.values())
+        for(category in TransactionCategory.entries)
         {
             sumByCategories[TransactionCategory.valueOf(category.name)]=sumByCategory(category, date)
         }

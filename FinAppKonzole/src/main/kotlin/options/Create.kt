@@ -1,10 +1,11 @@
 package options
 
 import bl.TransactionManager
-import helpFunctions.checkCategory
 import helpFunctions.checkLocalDate
-import helpFunctions.checkType
+import helpFunctions.readEnum
 import models.Transaction
+import models.TransactionCategory
+import models.TransactionType
 import java.time.LocalDate
 import java.util.UUID
 import java.time.temporal.ChronoUnit
@@ -12,8 +13,8 @@ import java.time.temporal.ChronoUnit
 fun createWithRecurrence() {
     print("Zadejte název: ")
     val name = readln()
-    val type = checkType()
-    val category = checkCategory()
+    val type = readEnum<TransactionType>("Zadejte typ(EXPENSE/INCOME):")
+    val category = readEnum<TransactionCategory>("Zadejte kategorii:")
     print("Zadejte částku: ")
     val amount = readln().toIntOrNull() ?: 0
     val description = readln()
