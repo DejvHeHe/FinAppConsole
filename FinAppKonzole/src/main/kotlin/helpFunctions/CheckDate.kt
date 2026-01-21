@@ -10,7 +10,7 @@ fun checkDate(input: String): YearMonth
     } else {
         try {
             YearMonth.parse(input)
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             println("Chyba: Špatný formát, nastavuji aktuální měsíc.")
             YearMonth.now()
         }

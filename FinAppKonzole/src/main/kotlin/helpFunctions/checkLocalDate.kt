@@ -17,7 +17,7 @@ fun checkLocalDate(prompt: String, default: LocalDate? = null): LocalDate? {
 
         try {
             return LocalDate.parse(input)
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             println("Chyba: Špatný formát data (použijte YYYY-MM-DD).")
         }
     }

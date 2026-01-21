@@ -13,4 +13,3 @@ enum class TransactionCategory(val type: TransactionType) {
     FOOD(TransactionType.EXPENSE),
     RENT(TransactionType.EXPENSE)
 }
-//Pokud zadám type expense a category salary tak to funguje

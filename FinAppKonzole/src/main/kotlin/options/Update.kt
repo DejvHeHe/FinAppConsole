@@ -4,7 +4,6 @@ import bl.TransactionManager
 import helpFunctions.checkLocalDate
 import helpFunctions.readEnum
 import models.TransactionCategory
-import models.TransactionType
 import java.time.LocalDate
 import java.util.UUID
 
@@ -25,8 +24,9 @@ fun update() {
             print("Zadejte nové jméno: ")
            val name = readln().trim().ifEmpty { null }
 
-            val type = readEnum<TransactionType>("Zadejte typ(EXPENSE/INCOME):")
-            val category = readEnum<TransactionCategory>("Zadejte kategorii:")
+
+            val category = readEnum<TransactionCategory>("Zadejte kategorii:",true)!!
+            val type = category.type
 
             print("Zadejte novou hodnotu: ")
            val amount = readln().toIntOrNull()
