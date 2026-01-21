@@ -1,6 +1,6 @@
 package helpFunctions
 
-
+//Potřeba upravit pro update
 
 inline fun <reified T : Enum<T>> readEnum(prompt:String):T {
     while(true)
